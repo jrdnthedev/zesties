@@ -4,4 +4,10 @@ const nextConfig = {
   reactStrictMode: false,
 };
 
-export default nextConfig;
+import withSass from "@zeit/next-sass";
+
+module.exports = withSass({
+  /* additional configuration options */
+});
+
+export { nextConfig, withSass };

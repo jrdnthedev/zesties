@@ -1,5 +1,6 @@
 "use client";
 import Card from "@/app/components/card/card";
+import LoadingSpinner from "@/app/components/loading_spinner/loading_spinner";
 import SearchBar from "@/app/components/search_bar/search_bar";
 import { Product } from "@/app/interfaces/product/product";
 import getProducts from "@/app/services/products/products";
@@ -20,9 +21,7 @@ export default function ProductCatalog() {
   }, []);
   function filter(e: any) {}
   if (isLoading) {
-    console.log("still loading...");
-  } else {
-    console.log("done loading!");
+    <LoadingSpinner />;
   }
   return (
     <>
