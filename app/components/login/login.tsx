@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import getUsers from "@/app/services/users/users";
+import { User } from "@/app/interfaces/user/user";
 
 export default function Login() {
   // Local state for form inputs
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [users, setUsers] = useState([]);
-  const [foundUser, setFoundUser] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -18,13 +18,13 @@ export default function Login() {
     fetchData();
   }, []);
 
-  function findUser(data: any, email: string, password: string) {
-    for (const user of data) {
+  function findUser(users: User[], email: string, password: string) {
+    for (const user of users) {
       if (user.email === email && user.password === password) {
-        setFoundUser(true);
         return user;
       }
     }
+    return null;
   }
 
   // Function to handle form submission
@@ -35,12 +35,14 @@ export default function Login() {
     // For simplicity, let's just log the credentials for now
     const user = findUser(users, email, password);
 
-    if (foundUser) {
+    if (user) {
       console.log(user);
       //add user to app state as logged in
 
       //redirect user to product page
       router.push("/pages/product_catalog");
+    } else {
+      console.log("User not found");
     }
   };
 
