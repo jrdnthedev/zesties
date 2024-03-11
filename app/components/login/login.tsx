@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import getUsers from "@/app/services/users/users";
 
 export default function Login() {
@@ -7,6 +7,8 @@ export default function Login() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [users, setUsers] = useState([]);
+  const [foundUser, setFoundUser] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,13 +21,11 @@ export default function Login() {
   function findUser(data: any, email: string, password: string) {
     for (const user of data) {
       if (user.email === email && user.password === password) {
-        console.log("user found!", user.name);
+        setFoundUser(true);
+        return user;
       }
     }
   }
-
-  // Next.js router
-  //   const router = useRouter();
 
   // Function to handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
@@ -33,9 +33,15 @@ export default function Login() {
 
     // Perform authentication logic here
     // For simplicity, let's just log the credentials for now
-    findUser(users, email, password);
-    // Redirect to dashboard or another page after successful login
-    // router.push('/home');
+    const user = findUser(users, email, password);
+
+    if (foundUser) {
+      console.log(user);
+      //add user to app state as logged in
+
+      //redirect user to product page
+      router.push("/pages/product_catalog");
+    }
   };
 
   return (
