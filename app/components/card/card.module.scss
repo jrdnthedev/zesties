@@ -1,0 +1,98 @@
+$card_gap: 12px;
+$card_border: 10px;
+$secondary_color: #cb6074;
+
+.card_img h1 {
+  font-size: 32px;
+  margin-top: 30px;
+  font-family: "Oswald", sans-serif;
+  text-align: center;
+}
+
+.blog_card {
+  transition: all 0.3s;
+  background: #fff;
+  border: 1px solid $secondary_color;
+  text-align: center;
+  cursor: pointer;
+}
+.blog_card:hover {
+  box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.1);
+  .card-img {
+    img {
+      opacity: 0.8;
+    }
+  }
+}
+
+.card_img {
+  position: relative;
+  text-align: center;
+  background: $secondary_color;
+}
+
+.card_img img {
+  transition: all 0.3s;
+  max-height: 180px;
+  width: 100%;
+  border-bottom: 4px solid $secondary_color;
+}
+
+.card_img h1 {
+  position: absolute;
+  margin: 0;
+  font-size: 42px;
+  bottom: 15px;
+  width: 100%;
+  color: #fff;
+  font-family: "Slabo 27px", serif;
+}
+.card_img::before {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  margin-left: -10px;
+  width: 0;
+  height: 0;
+  border-top: solid $card_border $secondary_color;
+  border-left: solid $card_border transparent;
+  border-right: solid $card_border transparent;
+}
+.card_details {
+  margin-top: 30px;
+  font-family: "Roboto", sans-serif;
+  color: #3c3c3c;
+  span {
+    // padding: 0 30px;
+  }
+}
+.card_details span i {
+  margin-right: 5px;
+}
+.card_text {
+  padding: 15px;
+  font-family: "Roboto", sans-serif;
+  line-height: 22px;
+}
+.card_text ul {
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+@media screen and (min-width: 768px) {
+  .blog_card {
+    flex: 0 0 calc(33.33% - $card_gap);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .blog_card {
+    flex: 0 0 calc(25% - $card_gap);
+  }
+}

@@ -1,9 +1,7 @@
 "use client";
-import styles from "./card.scss";
-import { Product } from "@/app/interfaces/product/product";
+import styles from "./card.module.scss";
 
 export default function Card(props: any) {
-  console.log(props);
   return (
     <>
       <div className={styles.blog_card}>
@@ -12,18 +10,47 @@ export default function Card(props: any) {
           <h1>{props.data.name}</h1>
         </div>
         <div className={styles.card_details}>
-          <span>
-            <i className="fa fa-calendar"></i>AUG 4
+          <span className={styles.bold}>
+            <i className="fa fa-calendar"></i>Genus:
           </span>
           <span>
-            <i className="fa fa-heart"></i>102
+            <i className="fa fa-heart"></i>
+            {props.data.genus}
           </span>
         </div>
         <div className={styles.card_text}>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Si verbum
-            sequimur, primum longius verbum praepositum quam bonum.
-          </p>
+          <ul>
+            <li>
+              <p>
+                <span className={styles.bold}>calories</span>:{" "}
+                {props.data.nutritions.calories}
+              </p>
+            </li>
+            <li>
+              <p>
+                <span className={styles.bold}>carbohydrates</span>:{" "}
+                {props.data.nutritions.carbohydrates}
+              </p>
+            </li>
+            <li>
+              <p>
+                <span className={styles.bold}>fat</span>:{" "}
+                {props.data.nutritions.fat}
+              </p>
+            </li>
+            <li>
+              <p>
+                <span className={styles.bold}>protein</span>:{" "}
+                {props.data.nutritions.protein}
+              </p>
+            </li>
+            <li>
+              <p>
+                <span className={styles.bold}>sugar</span>:{" "}
+                {props.data.nutritions.sugar}
+              </p>
+            </li>
+          </ul>
         </div>
       </div>
     </>
