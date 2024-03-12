@@ -52,6 +52,7 @@ export default function Card(props: any) {
             </li>
           </ul>
         </div>
+        <div className={styles.add_to_cart}>Add to Cart</div>
       </div>
     </>
   );

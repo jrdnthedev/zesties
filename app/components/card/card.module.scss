@@ -1,11 +1,13 @@
 $card_gap: 12px;
 $card_border: 10px;
 $secondary_color: #cb6074;
+$main_font: "Oswald", sans-serif;
+$secondary_font: "Roboto", sans-serif;
 
 .card_img h1 {
   font-size: 32px;
   margin-top: 30px;
-  font-family: "Oswald", sans-serif;
+  font-family: $main_font;
   text-align: center;
 }
 
@@ -18,11 +20,9 @@ $secondary_color: #cb6074;
 }
 .blog_card:hover {
   box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.1);
-  .card-img {
-    img {
-      opacity: 0.8;
-    }
-  }
+}
+.card_img:hover img {
+  opacity: 0.8;
 }
 
 .card_img {
@@ -61,7 +61,7 @@ $secondary_color: #cb6074;
 }
 .card_details {
   margin-top: 30px;
-  font-family: "Roboto", sans-serif;
+  font-family: $secondary_font;
   color: #3c3c3c;
   span {
     // padding: 0 30px;
@@ -72,7 +72,7 @@ $secondary_color: #cb6074;
 }
 .card_text {
   padding: 15px;
-  font-family: "Roboto", sans-serif;
+  font-family: $secondary_font;
   line-height: 22px;
 }
 .card_text ul {
@@ -81,8 +81,25 @@ $secondary_color: #cb6074;
   text-align: left;
 }
 
+.card_text li {
+  list-style: none;
+}
+
 .bold {
   font-weight: bold;
+}
+
+.add_to_cart {
+  transition: all 0.3s;
+  display: inline-block;
+  width: auto;
+  text-align: center;
+  text-transform: uppercase;
+  background: $secondary_color;
+  color: #fff;
+  padding: 15px;
+  margin-bottom: 15px;
+  font-family: $main_font;
 }
 
 @media screen and (min-width: 768px) {
