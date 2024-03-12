@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import getUsers from "@/app/services/users/users";
 import { User } from "@/app/interfaces/user/user";
+import { useAuth } from "@/app/context/AuthContext";
 
 export default function Login() {
   // Local state for form inputs
@@ -9,6 +10,7 @@ export default function Login() {
   const [password, setPassword] = useState<string>("");
   const [users, setUsers] = useState([]);
   const router = useRouter();
+  const { isAuthenticated, login } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,16 +35,10 @@ export default function Login() {
 
     // Perform authentication logic here
     // For simplicity, let's just log the credentials for now
-    const user = findUser(users, email, password);
-
-    if (user) {
-      console.log(user);
-      //add user to app state as logged in
-
+    await login(email, password);
+    if (isAuthenticated) {
       //redirect user to product page
       router.push("/pages/product_catalog");
-    } else {
-      console.log("User not found");
     }
   };
 

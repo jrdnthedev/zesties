@@ -1,68 +1,66 @@
+"use client";
 import React, {
   createContext,
   useContext,
-  useEffect,
   useState,
+  useEffect,
   PropsWithChildren,
 } from "react";
-import { useRouter } from "next/router";
-import {
-  setAuthToken,
-  getAuthToken,
-  removeAuthToken,
-} from "../services/auth/authService";
-import api from "../services/api/apiService";
-
-interface User {
-  username: string;
-}
+import Cookies from "js-cookie";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 interface AuthContextProps {
-  user: User | null;
   isAuthenticated: boolean;
-  login: (token: string) => void;
+  login: (username: string, password: string) => Promise<void>;
   logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const isAuthenticated = !!user;
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
-    const token = getAuthToken();
-
-    if (token) {
-      // Retrieve user information from the backend using the token
-      api
-        .get("/api/users")
-        .then((response) => setUser(response.data))
-        .catch((error) => {
-          console.error("Error retrieving user data:", error);
-          logout();
-        });
-    }
+    const userIsAuthenticated = Cookies.get("token") !== undefined;
+    setIsAuthenticated(userIsAuthenticated);
   }, []);
 
-  const login = (token: string) => {
-    setAuthToken(token);
-    // Assuming you have a route that returns user information based on the token
-    api
-      .get("/api/users")
-      .then((response) => setUser(response.data))
-      .catch((error) => console.error("Error retrieving user data:", error));
+  const login = async (username: string, password: string) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/login",
+        null,
+        {
+          auth: {
+            username,
+            password,
+          },
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const token = response.data.token;
+      Cookies.set("token", token);
+      setIsAuthenticated(true);
+    } catch (error) {
+      console.error("Login error:", error);
+      setIsAuthenticated(false);
+    }
   };
 
   const logout = () => {
-    removeAuthToken();
-    setUser(null);
-    router.push("/login"); // Redirect to login page after logout
+    Cookies.remove("token");
+
+    router.push("/");
+    setIsAuthenticated(false);
   };
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

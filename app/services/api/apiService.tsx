@@ -2,7 +2,7 @@ import axios from "axios";
 import { getAuthToken } from "../auth/authService";
 
 const api = axios.create({
-  baseURL: "http://your-python-backend-url/api", // Replace with your Python backend API URL
+  baseURL: "http://localhost:5000/api", // Replace with your Python backend API URL
 });
 
 // Set authorization header with the JWT token

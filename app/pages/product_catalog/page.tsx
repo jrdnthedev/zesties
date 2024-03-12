@@ -6,6 +6,7 @@ import { Product } from "@/app/interfaces/product/product";
 import getProducts from "@/app/services/products/products";
 import { useEffect, useState } from "react";
 import styles from "./product_catalog.module.scss";
+import Logout from "@/app/components/logout/logout";
 
 export default function ProductCatalog() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -26,6 +27,7 @@ export default function ProductCatalog() {
   }
   return (
     <>
+      <Logout />
       <h1>Product Catalog Page</h1>
 
       <div id="product_catalog">
