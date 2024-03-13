@@ -35,11 +35,6 @@ export default function Login() {
 
     // Perform authentication logic here
     await login(email, password);
-
-    if (isAuthenticated) {
-      //redirect user to product page
-      router.push("/pages/product_catalog");
-    }
   };
 
   return (

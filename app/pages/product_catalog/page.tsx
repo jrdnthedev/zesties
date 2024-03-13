@@ -7,10 +7,14 @@ import getProducts from "@/app/services/products/products";
 import { useEffect, useState } from "react";
 import styles from "./product_catalog.module.scss";
 import Logout from "@/app/components/logout/logout";
+import { useAuth } from "@/app/context/AuthContext";
+import { useRouter } from "next/navigation";
 
 export default function ProductCatalog() {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setLoading] = useState(true);
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,9 +25,15 @@ export default function ProductCatalog() {
     };
     fetchData();
   }, []);
+
   function filter(e: any) {}
+
   if (isLoading) {
     <LoadingSpinner />;
+  }
+
+  if (!isAuthenticated) {
+    router.push("/");
   }
   return (
     <>

@@ -46,6 +46,7 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
       const token = response.data.token;
       Cookies.set("token", token);
       setIsAuthenticated(true);
+      router.push("/pages/product_catalog");
     } catch (error) {
       console.error("Login error:", error);
       setIsAuthenticated(false);
