@@ -34,8 +34,8 @@ export default function Login() {
     e.preventDefault();
 
     // Perform authentication logic here
-    // For simplicity, let's just log the credentials for now
     await login(email, password);
+
     if (isAuthenticated) {
       //redirect user to product page
       router.push("/pages/product_catalog");
