@@ -6,9 +6,9 @@ import { Product } from "@/app/interfaces/product/product";
 import getProducts from "@/app/services/products/products";
 import { useEffect, useState } from "react";
 import styles from "./product_catalog.module.scss";
-import Logout from "@/app/components/logout/logout";
 import { useAuth } from "@/app/context/AuthContext";
 import { useRouter } from "next/navigation";
+import NavBar from "@/app/components/navbar/navbar";
 
 export default function ProductCatalog() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -37,9 +37,8 @@ export default function ProductCatalog() {
   }
   return (
     <>
-      <Logout />
+      <NavBar />
       <h1>Product Catalog Page</h1>
-
       <div id="product_catalog">
         <SearchBar filter={filter} />
         <div id={styles.product_card_container}>

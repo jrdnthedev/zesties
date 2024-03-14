@@ -1,0 +1,21 @@
+#nav {
+  display: flex;
+  flex-direction: column;
+  span {
+    flex: 1;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  #nav {
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    span {
+      flex: 1;
+      &:nth-child(2) {
+        flex: 2;
+      }
+    }
+  }
+}
