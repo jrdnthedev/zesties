@@ -9,10 +9,11 @@ import React, {
 import Cookies from "js-cookie";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { User } from "../interfaces/user/user";
 
 interface AuthContextProps {
   isAuthenticated: boolean;
-  login: (username: string, password: string) => Promise<void>;
+  login: (username: string, password: string, user: User) => Promise<void>;
   logout: () => void;
 }
 
@@ -27,7 +28,7 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
     setIsAuthenticated(userIsAuthenticated);
   }, []);
 
-  const login = async (username: string, password: string) => {
+  const login = async (username: string, password: string, user: User) => {
     try {
       const response = await axios.post(
         "http://localhost:5000/api/login",
@@ -46,6 +47,7 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
       const token = response.data.token;
       Cookies.set("token", token);
       setIsAuthenticated(true);
+      console.log("logged in ", user);
       router.push("/pages/product_catalog");
     } catch (error) {
       console.error("Login error:", error);

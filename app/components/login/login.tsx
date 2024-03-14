@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import getUsers from "@/app/services/users/users";
-import { User } from "@/app/interfaces/user/user";
 import { useAuth } from "@/app/context/AuthContext";
 
 export default function Login() {
@@ -9,8 +7,7 @@ export default function Login() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [users, setUsers] = useState([]);
-  const router = useRouter();
-  const { isAuthenticated, login } = useAuth();
+  const { login } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,9 +17,10 @@ export default function Login() {
     fetchData();
   }, []);
 
-  function findUser(users: User[], email: string, password: string) {
+  function findUser(users: any, email: string, password: string) {
     for (const user of users) {
       if (user.email === email && user.password === password) {
+        //set user to state here
         return user;
       }
     }
@@ -32,9 +30,8 @@ export default function Login() {
   // Function to handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     // Perform authentication logic here
-    await login(email, password);
+    await login(email, password, findUser(users, email, password));
   };
 
   return (
