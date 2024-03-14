@@ -3,5 +3,5 @@ export interface Product {
   name: string;
   family: string;
   order: string;
-  nutritions: any;
+  nutritions: {};
 }
