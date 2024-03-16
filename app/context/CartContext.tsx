@@ -30,10 +30,21 @@ const shoppingCartReducer = (
 ): ShoppingCart => {
   switch (action.type) {
     case "ADD_ITEM":
-      return {
-        ...state,
-        items: [...state.items, action.payload],
-      };
+      const existingItemIndex = state.items.findIndex(
+        (item) => item.id === action.payload.id
+      );
+      if (existingItemIndex !== -1) {
+        const updatedCart = { id: 1, userId: 1, items: [...state.items] };
+        updatedCart.items[existingItemIndex].quantity += 1;
+        return updatedCart;
+      } else {
+        action.payload.quantity = 1;
+        return {
+          ...state,
+          items: [...state.items, action.payload],
+        };
+      }
+
     case "REMOVE_ITEM":
       return {
         ...state,

@@ -100,6 +100,7 @@ $secondary_font: "Roboto", sans-serif;
   padding: 15px;
   margin-bottom: 15px;
   font-family: $main_font;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 768px) {

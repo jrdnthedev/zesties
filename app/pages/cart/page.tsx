@@ -1,2 +1,13 @@
+"use client";
+import Cart from "@/app/components/cart/cart";
 import styles from "./cart.module.scss";
-export default function Cart() {}
+import NavBar from "@/app/components/navbar/navbar";
+
+export default function CartPage() {
+  return (
+    <section>
+      <NavBar />
+      <Cart />
+    </section>
+  );
+}

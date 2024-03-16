@@ -36,7 +36,7 @@ export default function ProductCatalog() {
     router.push("/");
   }
   return (
-    <>
+    <section>
       <NavBar />
       <h1>Product Catalog Page</h1>
       <div id="product_catalog">
@@ -47,6 +47,6 @@ export default function ProductCatalog() {
           ))}
         </div>
       </div>
-    </>
+    </section>
   );
 }

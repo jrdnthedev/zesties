@@ -4,7 +4,6 @@ import styles from "./card.module.scss";
 
 export default function Card(props: any) {
   const { addItem, cart } = useShoppingCart();
-  console.log(cart);
   return (
     <>
       <div className={styles.blog_card}>
