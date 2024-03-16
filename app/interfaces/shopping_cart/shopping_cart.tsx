@@ -1,16 +1,14 @@
-interface CartItem {
-  id: string;
+export interface CartItem {
+  id: number;
   name: string;
   quantity: number;
   price: number;
 }
 
-interface ShoppingCart {
-  id: string;
+export interface ShoppingCart {
+  id: number;
   userId: number; // Assuming a user is associated with the shopping cart
   items: CartItem[];
   createdAt: Date;
   updatedAt: Date;
 }
-
-export default ShoppingCart;

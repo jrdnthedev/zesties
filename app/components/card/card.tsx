@@ -1,7 +1,10 @@
 "use client";
+import { useShoppingCart } from "@/app/context/CartContext";
 import styles from "./card.module.scss";
 
 export default function Card(props: any) {
+  const { addItem, cart } = useShoppingCart();
+  console.log(cart);
   return (
     <>
       <div className={styles.blog_card}>
@@ -52,7 +55,12 @@ export default function Card(props: any) {
             </li>
           </ul>
         </div>
-        <div className={styles.add_to_cart}>Add to Cart</div>
+        <button
+          className={styles.add_to_cart}
+          onClick={() => addItem(props.data)}
+        >
+          Add to Cart
+        </button>
       </div>
     </>
   );
