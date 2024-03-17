@@ -46,10 +46,19 @@ const shoppingCartReducer = (
       }
 
     case "REMOVE_ITEM":
-      return {
-        ...state,
-        items: state.items.filter((item) => item.id !== action.payload),
-      };
+      const itemToDeleteIndex = state.items.findIndex(
+        (item) => item.id === action.payload
+      );
+      if (itemToDeleteIndex !== -1) {
+        const updatedCart = state;
+        if (updatedCart.items[itemToDeleteIndex].quantity > 1) {
+          updatedCart.items[itemToDeleteIndex].quantity -= 1;
+          return updatedCart;
+        } else {
+          updatedCart.items.splice(itemToDeleteIndex, 1);
+          return updatedCart;
+        }
+      }
     case "CLEAR_CART":
       return {
         ...state,

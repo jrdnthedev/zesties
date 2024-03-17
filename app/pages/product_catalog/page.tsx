@@ -36,7 +36,7 @@ export default function ProductCatalog() {
   }
 
   if (isLoading) {
-    <LoadingSpinner />;
+    return <LoadingSpinner />;
   }
 
   if (!isAuthenticated) {
