@@ -3,7 +3,7 @@ import { useShoppingCart } from "@/app/context/CartContext";
 import styles from "./card.module.scss";
 
 export default function Card(props: any) {
-  const { addItem, cart } = useShoppingCart();
+  const { addItem } = useShoppingCart();
   return (
     <>
       <div className={styles.blog_card}>
