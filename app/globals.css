@@ -13,3 +13,15 @@ a {
   text-decoration: none;
 }
 
+span.dot {
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  background-color: red;
+  position: absolute;
+  right: -13px;
+  top: -5px;
+  text-align: center;
+  color: white;
+  display: inline-block;
+}
