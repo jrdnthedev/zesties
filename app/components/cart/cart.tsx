@@ -16,6 +16,9 @@ export default function Cart() {
                 <span>{item.name}</span>
                 <span>{item.price}</span>
                 <span>{item.quantity}</span>
+                <span>
+                  <button onClick={() => removeItem(item.id)}>Remove</button>
+                </span>
               </p>
             </li>
           ))}

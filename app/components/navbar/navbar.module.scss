@@ -6,6 +6,13 @@
   }
 }
 
+#main_nav li {
+  list-style: none;
+  display: inline-block;
+  margin-right: 5px;
+  position: relative;
+}
+
 @media screen and (min-width: 768px) {
   #nav {
     height: 40px;
@@ -13,7 +20,7 @@
     flex-direction: row;
     span {
       flex: 1;
-      &:nth-child(2) {
+      &:nth-child(1) {
         flex: 2;
       }
     }
