@@ -12,6 +12,7 @@ import NavBar from "@/app/components/navbar/navbar";
 
 export default function ProductCatalog() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [isLoading, setLoading] = useState(true);
   const { isAuthenticated } = useAuth();
   const router = useRouter();
@@ -21,12 +22,18 @@ export default function ProductCatalog() {
       const data = await getProducts();
       console.log(data);
       setProducts(data);
+      setFilteredProducts(data);
       setLoading(false);
     };
     fetchData();
   }, []);
 
-  function filter(e: any) {}
+  function filter(e: any) {
+    const result = products.filter((data: Product) =>
+      data.name.toLocaleLowerCase().includes(e.target.value)
+    );
+    setFilteredProducts(result);
+  }
 
   if (isLoading) {
     <LoadingSpinner />;
@@ -42,7 +49,7 @@ export default function ProductCatalog() {
       <div id="product_catalog">
         <SearchBar filter={filter} />
         <div id={styles.product_card_container}>
-          {products.map((product: Product) => (
+          {filteredProducts.map((product: Product) => (
             <Card data={product} key={product.id} />
           ))}
         </div>
