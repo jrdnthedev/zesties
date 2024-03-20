@@ -2,13 +2,14 @@
 import React, { useEffect, useState } from "react";
 import getUsers from "@/app/services/users/users";
 import { useAuth } from "@/app/context/AuthContext";
+import LoadingSpinner from "../loading_spinner/loading_spinner";
 
 export default function Login() {
   // Local state for form inputs
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [users, setUsers] = useState([]);
-  const { login } = useAuth();
+  const { login, isAuthenticated } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,6 +36,9 @@ export default function Login() {
     await login(email, password, findUser(users, email, password));
   };
 
+  if (!isAuthenticated) {
+    <LoadingSpinner />;
+  }
   return (
     <div>
       <h2>Login</h2>

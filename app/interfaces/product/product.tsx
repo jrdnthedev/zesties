@@ -3,5 +3,6 @@ export interface Product {
   name: string;
   family: string;
   order: string;
+  genus: string;
   nutritions: {};
 }

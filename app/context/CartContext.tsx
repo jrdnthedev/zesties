@@ -4,11 +4,12 @@ import {
   ShoppingCart,
   CartItem,
 } from "@/app/interfaces/shopping_cart/shopping_cart";
+import { Product } from "../interfaces/product/product";
 
 // Define the shape of the context
 interface ShoppingCartContextType {
-  cart: ShoppingCart;
-  addItem: (item: CartItem) => void;
+  cart: CartItem[];
+  addItem: (product: Product) => void;
   removeItem: (itemId: number) => void;
   clearCart: () => void;
 }
@@ -20,50 +21,43 @@ const ShoppingCartContext = createContext<ShoppingCartContextType | undefined>(
 
 // Define the reducer function
 type Action =
-  | { type: "ADD_ITEM"; payload: CartItem }
+  | { type: "ADD_ITEM"; payload: Product }
   | { type: "REMOVE_ITEM"; payload: number }
   | { type: "CLEAR_CART" };
 
-const shoppingCartReducer = (
-  state: ShoppingCart,
-  action: Action
-): ShoppingCart => {
+const shoppingCartReducer = (state: CartItem[], action: Action): CartItem[] => {
   switch (action.type) {
     case "ADD_ITEM":
-      const existingItemIndex = state.items.findIndex(
-        (item) => item.id === action.payload.id
+      const existingItemIndex = state.findIndex(
+        (item) => item.product.id === action.payload.id
       );
       if (existingItemIndex !== -1) {
-        const updatedCart = { id: 1, userId: 1, items: [...state.items] };
-        updatedCart.items[existingItemIndex].quantity += 1;
+        const updatedCart = [...state];
+        console.log(updatedCart);
+        updatedCart[existingItemIndex].quantity += 1;
         return updatedCart;
       } else {
-        action.payload.quantity = 1;
-        return {
+        return [
           ...state,
-          items: [...state.items, action.payload],
-        };
+          { product: action.payload, quantity: 1, price: 2.99 },
+        ];
       }
-
     case "REMOVE_ITEM":
-      const itemToDeleteIndex = state.items.findIndex(
-        (item) => item.id === action.payload
+      const itemToDeleteIndex = state.findIndex(
+        (item) => item.product.id === action.payload
       );
       if (itemToDeleteIndex !== -1) {
         const updatedCart = state;
-        if (updatedCart.items[itemToDeleteIndex].quantity > 1) {
-          updatedCart.items[itemToDeleteIndex].quantity -= 1;
+        console.log(updatedCart, itemToDeleteIndex);
+        if (updatedCart[itemToDeleteIndex].quantity > 1) {
+          updatedCart[itemToDeleteIndex].quantity -= 1;
           return updatedCart;
         } else {
-          updatedCart.items.splice(itemToDeleteIndex, 1);
-          return updatedCart;
+          return state.filter((item) => item.product.id !== action.payload);
         }
       }
     case "CLEAR_CART":
-      return {
-        ...state,
-        items: [],
-      };
+      return [];
     default:
       return state;
   }
@@ -78,16 +72,10 @@ interface CartProviderProps {
 export const ShoppingCartProvider: React.FC<CartProviderProps> = ({
   children,
 }) => {
-  const [cart, dispatch] = useReducer(shoppingCartReducer, {
-    id: 0,
-    userId: 0,
-    items: [],
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  });
+  const [cart, dispatch] = useReducer(shoppingCartReducer, []);
 
-  const addItem = (item: CartItem) => {
-    dispatch({ type: "ADD_ITEM", payload: item });
+  const addItem = (product: Product) => {
+    dispatch({ type: "ADD_ITEM", payload: product });
   };
 
   const removeItem = (itemId: number) => {

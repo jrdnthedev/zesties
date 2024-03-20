@@ -42,6 +42,7 @@ export default function ProductCatalog() {
   if (!isAuthenticated) {
     router.push("/");
   }
+  console.log(filteredProducts);
   return (
     <section>
       <NavBar />
@@ -50,7 +51,7 @@ export default function ProductCatalog() {
         <SearchBar filter={filter} />
         <div id={styles.product_card_container}>
           {filteredProducts.map((product: Product) => (
-            <Card data={product} key={product.id} />
+            <Card {...product} key={product.id} />
           ))}
         </div>
       </div>

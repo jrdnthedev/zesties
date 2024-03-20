@@ -18,10 +18,8 @@ export default function NavBar() {
           </li>
           <li>
             <Link href="/pages/cart" replace>
-              {cart.items.length ? (
-                <span className={cart.items.length ? "dot" : ""}>
-                  {cart.items.length}
-                </span>
+              {cart.length ? (
+                <span className={cart.length ? "dot" : ""}>{cart.length}</span>
               ) : null}
               CART
             </Link>

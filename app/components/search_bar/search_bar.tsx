@@ -1,4 +1,3 @@
-"use client";
 import styles from "./search_bar.module.css";
 
 export default function SearchBar(props: any) {
