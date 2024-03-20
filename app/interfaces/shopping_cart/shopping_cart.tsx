@@ -2,8 +2,6 @@ import { Product } from "../product/product";
 
 export interface CartItem {
   product: Product;
-  quantity: number;
-  price: number;
 }
 
 export interface ShoppingCart {

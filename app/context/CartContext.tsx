@@ -32,30 +32,12 @@ const shoppingCartReducer = (state: CartItem[], action: Action): CartItem[] => {
         (item) => item.product.id === action.payload.id
       );
       if (existingItemIndex !== -1) {
-        const updatedCart = [...state];
-        console.log(updatedCart);
-        updatedCart[existingItemIndex].quantity += 1;
-        return updatedCart;
+        return [...state];
       } else {
-        return [
-          ...state,
-          { product: action.payload, quantity: 1, price: 2.99 },
-        ];
+        return [...state, { product: action.payload }];
       }
     case "REMOVE_ITEM":
-      const itemToDeleteIndex = state.findIndex(
-        (item) => item.product.id === action.payload
-      );
-      if (itemToDeleteIndex !== -1) {
-        const updatedCart = state;
-        console.log(updatedCart, itemToDeleteIndex);
-        if (updatedCart[itemToDeleteIndex].quantity > 1) {
-          updatedCart[itemToDeleteIndex].quantity -= 1;
-          return updatedCart;
-        } else {
-          return state.filter((item) => item.product.id !== action.payload);
-        }
-      }
+      return state.filter((item) => item.product.id !== action.payload);
     case "CLEAR_CART":
       return [];
     default:
